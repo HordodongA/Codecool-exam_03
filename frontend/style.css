@@ -11,4 +11,86 @@ html {
 body {
     font-size: 1.6rem;
     padding-bottom: 2rem;
+    display: flex;
+    justify-content: center;
 }
+
+/* ? SEARCH BAR SECTION */
+
+#searchbar {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#searchUserInput {
+    border-radius: 3px;
+    padding: 0.5%;
+}
+
+/* * END OF SEARCH BAR SECTION */
+
+
+/* ? IMAGE GRID SECTION */
+
+#usersGridContainer {
+    width: 80%;
+    padding: 6rem 2rem 2rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 2rem;
+    column-gap: 2rem;
+}
+
+.userCard {
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    flex: 0 0 120px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userCard img {
+    position: relative;
+    width: 100%;
+    margin-bottom: auto;
+}
+
+.userName {
+    margin-top: 0.5rem;
+}
+
+.infoButton {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 3px;
+    padding: 0.5rem;
+    /* z-index: 99; */
+    /* position: absolute; */
+    margin-top: 0.5rem;
+    /* max-width: 80%; */
+    /* margin-right: 0.5rem; */
+    /* align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.infoButton:hover {
+    cursor: pointer;
+    /* box-shadow: 3px 3px black; */
+}
+
+.userType, .userAdmin {
+    display: none;
+}
+
+/* * END OF IMAGE GRID SECTION */
