@@ -1,21 +1,24 @@
 console.log("script.js loaded")
 
-// Put HTML elements into variables
+let userDatabase
+
+// ? Put HTML elements into variables
 let searchUserInput = document.getElementById("searchUserInput")
-let loadingMessageP = document.getElementById("loadingMessage")
+let userMessageP = document.getElementById("userMessage")
 let usersGridContainer = document.getElementById("usersGridContainer")
 
 
-// Get json data onload
+// ? Get json data onload
 let getUsersDatabase = async () => {
-    loadingMessageP.innerText = "Loading..."
+    userMessageP.innerText = "Loading..."
     const usersData = await (await fetch("https://api.github.com/users")).json()
-    await generateUsersGrid(usersData)
-    loadingMessageP.innerText = ""
+    generateUsersGrid(usersData)
+    userDatabase = usersData
+    userMessageP.innerText = ""
 } // * WORKS
 
 
-// Generating users grid
+// ? Generating users grid
 const generateUsersGrid = (usersArr) => {
     for (const user of usersArr) {
         let userCard = generateCard(user)
@@ -24,7 +27,7 @@ const generateUsersGrid = (usersArr) => {
 } // * WORKS
 
 
-// Generating User Card
+// ? Generating User Card
 const generateCard = (userObj) => {
     let userCard = document.createElement("div")
     userCard.setAttribute("id", `card${userObj.id}`)
@@ -62,7 +65,7 @@ const generateCard = (userObj) => {
 getUsersDatabase()
 
 
-// Show more function
+// ? Show more function
 const moreInfoFunction = (event) => {
     const parentElement = event.target.parentElement
     const infoButton = document.querySelector(`#${parentElement.id} .infoButton`)
@@ -80,11 +83,26 @@ const moreInfoFunction = (event) => {
     }
 } // *WORKS
 
-// Search input
-const userFilterFunction = (event) => {
-    console.log(searchUserInput)
-    console.log(event.target.value)
-}
 
-// Register Event Listeners
-searchUserInput.addEventListener("change", userFilterFunction)
+// ? Search input handling
+const userFilterFunction = (event) => {
+    console.log(event.target.value)
+    usersGridContainer.innerHTML = ""
+    let searchUserArr = []
+    for (let user of userDatabase) {
+        if ((user.login.slice(0, event.target.value.length)) === event.target.value) {
+            searchUserArr.push(user)
+        }
+    }
+    if (searchUserArr.length === 0) {
+        userMessageP.innerText = "Nothing found"
+    }
+    else {
+        userMessageP.innerText = ""
+        generateUsersGrid(searchUserArr)
+    }
+} // * WORKS
+
+
+// Register Event Listener
+searchUserInput.addEventListener("input", userFilterFunction)
